@@ -13,7 +13,7 @@
   <script src="app.js"></script>
 </head>
 
-<body ng-app="redBoards" ng-controller="mainCtrl">
+<body ng-app="red-boards-app" ng-controller="mainCtrl">
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
@@ -23,10 +23,10 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">{{title}}</a>
+        <a class="navbar-brand" href="./">{{title}}</a>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
-        <form class="navbar-form navbar-right">
+        <!-- <form class="navbar-form navbar-right">
           <div class="form-group">
             <input type="text" placeholder="Email" class="form-control">
           </div>
@@ -34,20 +34,65 @@
             <input type="password" placeholder="Password" class="form-control">
           </div>
           <button type="submit" class="btn btn-success">Sign in</button>
-        </form>
+        </form> -->
       </div>
       <!--/.navbar-collapse -->
     </div>
   </nav>
 
   <div class="container">
-    <div class="row">
+    <div style="margin-top:50px;" class="row">
       <div class="col-md-12">
 
-        <div style="margin-top:50px;">{{title}}</div>
+        <!-- <div>{{title}}</div> -->
+        <div>
+          <ui-view></ui-view>
+        </div>
       </div>
     </div>
   </div>
 </body>
 
+<script type="text/ng-template" id="/data_list.html">
+<table class="table-condensed table-responsive">
+  <thead>
+    <tr>
+      <th>MLS Area</th>
+      <th>Client Code</th>
+      <th>Client</th>
+      <th>Last Run</th>
+      <th>Host</th>
+      <th>Status</th>
+      <th>Create Date</th>
+      <th>Exception Type</th>
+      <th>Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in data | orderBy: 'client_name'">
+      <td><a href="#/item/{{item.client_code}}">{{item.mls_area}}</a></td>
+      <td>{{item.client_code}}</td>
+      <td>{{item.client_name}}</td>
+      <td>{{item.last_run}}</td>
+      <td>{{item.host_server}}</td>
+      <td>{{item.status}}</td>
+      <td>{{item.create_date}}</td>
+      <td>{{item.exception_type}}</td>
+      <td>{{item.body}}</td>
+    </tr>
+    <tbody>
+</table>
+</script>
+
+<script type="text/ng-template" id="/item.html">
+  <div>{{item.mls_area}}</div>
+  <div>{{item.client_code}}</div>
+  <div>{{item.client_name}}</div>
+  <div>{{item.last_run}}</div>
+  <div>{{item.host_server}}</div>
+  <div>{{item.status}}</div>
+  <div>{{item.create_date}}</div>
+  <div>{{item.exception_type}}</div>
+  <div>{{item.body}}</div>
+</script>
 </html>

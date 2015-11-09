@@ -9,9 +9,9 @@ var Comment = mongoose.model('Comment');
 
 
 // get the iformation from the database before processing request
-router.param('mlsexception', function(req, res, next, id) {
+router.param('id', function(req, res, next, id) {
   var query = MlsException.findById(id);
-
+  console.log("logging:" + id);
   query.exec(function(err, exceptionObj) {
     if (err) {
       return next(err);
@@ -73,15 +73,34 @@ router.post('/mlsexceptions', function(req, res, next) {
   });
 });
 
-router.get('/mlsexceptions/:mlsexception', function(req, res) {
-  req.mlsExceptions.populate('comments', function(err, obj) {
+router.get('/mlsexceptions/open', function(req, res) {
+  MlsException.find({
+    "status": "New"
+  }, function(err, mlsExs) {
     if (err) {
       return next(err);
     }
 
-    res.json(obj);
+    res.json(mlsExs);
   });
 });
+
+router.get('/mlsexceptions/:id', function(req, res) {
+
+
+  res.json(req.mlsException);
+
+
+  // req.mlsExceptions.populate('comments', function(err, obj) {
+  //   if (err) {
+  //     return next(err);
+  //   }
+  //
+  //  res.json(obj);
+  // });
+});
+
+
 
 
 router.post('/mlsexceptions/:mlsexception/comments', function(req, res, next) {
