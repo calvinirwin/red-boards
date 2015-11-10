@@ -54,34 +54,34 @@
 </body>
 
 <script type="text/ng-template" id="/data_list.html">
-<table class="table-condensed table-responsive">
-  <thead>
-    <tr>
-      <th>MLS Area</th>
-      <th>Client Code</th>
-      <th>Client</th>
-      <th>Last Run</th>
-      <th>Host</th>
-      <th>Status</th>
-      <th>Create Date</th>
-      <th>Exception Type</th>
-      <th>Body</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="item in data | orderBy: 'client_name'">
-      <td><a href="#/item/{{item.client_code}}">{{item.mls_area}}</a></td>
-      <td>{{item.client_code}}</td>
-      <td>{{item.client_name}}</td>
-      <td>{{item.last_run}}</td>
-      <td>{{item.host_server}}</td>
-      <td>{{item.status}}</td>
-      <td>{{item.create_date}}</td>
-      <td>{{item.exception_type}}</td>
-      <td>{{item.body}}</td>
-    </tr>
+  <table class="table-condensed table-responsive">
+    <thead>
+      <tr>
+        <th>MLS Area</th>
+        <th>Client Code</th>
+        <th>Client</th>
+        <th>Last Run</th>
+        <th>Host</th>
+        <th>Status</th>
+        <th>Create Date</th>
+        <th>Exception Type</th>
+        <th>Body</th>
+      </tr>
+    </thead>
     <tbody>
-</table>
+      <tr ng-repeat="item in data | orderBy: 'client_name'">
+        <td><a href="#/item/{{item._id}}">{{item.mls_area}}</a></td>
+        <td>{{item.client_code}}</td>
+        <td>{{item.client_name}}</td>
+        <td>{{item.last_run}}</td>
+        <td>{{item.host_server}}</td>
+        <td>{{item.status}}</td>
+        <td>{{item.create_date}}</td>
+        <td>{{item.exception_type}}</td>
+        <td>{{item.body}}</td>
+      </tr>
+      <tbody>
+  </table>
 </script>
 
 <script type="text/ng-template" id="/item.html">
@@ -95,4 +95,5 @@
   <div>{{item.exception_type}}</div>
   <div>{{item.body}}</div>
 </script>
+
 </html>
