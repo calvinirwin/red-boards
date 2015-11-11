@@ -38,6 +38,12 @@ app.factory('exItems', ['$http', function($http) {
     });
   };
 
+  o.update = function(item) {
+    return $http.post(DATA_URL + 'mlsexceptions/' + id).then(function(res) {
+      return res.data;
+    });
+  };
+
   o.getOpen = function() {
     return $http.get(DATA_URL + 'mlsexceptions/open').then(function(res) {
       return res.data;

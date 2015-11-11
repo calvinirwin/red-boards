@@ -73,6 +73,11 @@ router.post('/mlsexceptions', function(req, res, next) {
   });
 });
 
+
+
+
+
+
 router.get('/mlsexceptions/open', function(req, res) {
   MlsException.find({
     "status": "New"
@@ -86,22 +91,50 @@ router.get('/mlsexceptions/open', function(req, res) {
 });
 
 router.get('/mlsexceptions/:id', function(req, res) {
-
-
   res.json(req.mlsException);
-
-
-  // req.mlsExceptions.populate('comments', function(err, obj) {
-  //   if (err) {
-  //     return next(err);
-  //   }
-  //
-  //  res.json(obj);
-  // });
 });
 
 
+router.put('/mlsexceptions', function(req, res, next) {
+  console.log("entering update on exception item...")
+  var instance = new MlsException(req.body);
+  console.log(instance);
+  // MlsException.findById(instance._id, function(err, Item) {
+  //   if (err) {
+  //     console.log(err);
+  //     return next(err);
+  //   }
+  //   Item = instance;
+  //   console.log(Item);
+  //   Item.save(function(err) {
+  //     if (err) {
+  //       console.log(err);
+  //       return next(err);
+  //     }
+  //     res.json(Item);
+  //   })
+  // });
 
+  // this does not return the updated document - ite returns the old version but the document has been updated.
+  MlsException.findOneAndUpdate({
+      _id: instance._id
+    }, instance, {
+      upsert: true,
+      new: true
+    },
+    function(err, doc) {
+      if (!err) {
+        console.log(doc);
+        res.json(doc)
+
+      } else {
+        console.log(err);
+        return next(err);
+      }
+    }
+  );
+
+});
 
 router.post('/mlsexceptions/:mlsexception/comments', function(req, res, next) {
   var comment = new Comment(req.body);
