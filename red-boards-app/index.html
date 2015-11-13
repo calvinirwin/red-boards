@@ -85,15 +85,59 @@
 </script>
 
 <script type="text/ng-template" id="/item.html">
-  <div>{{item.mls_area}}</div>
-  <div>{{item.client_code}}</div>
-  <div>{{item.client_name}}</div>
-  <div>{{item.last_run}}</div>
-  <div>{{item.host_server}}</div>
-  <div>{{item.status}}</div>
-  <div>{{item.create_date}}</div>
-  <div>{{item.exception_type}}</div>
-  <div>{{item.body}}</div>
+
+
+  <!--
+  <div>MLS Area: {{item.mls_area}}</div>
+  <div>Client Code: {{item.client_code}}</div>
+  <div>Client Name: {{item.client_name}}</div>
+  <div>Last Successful Run: {{item.last_run}}</div>
+  <div>Host Server: {{item.host_server}}</div>
+  <div>Created On: {{item.create_date}}</div>
+  <div>Exception Type: {{item.exception_type}}</div>-->
+  <div>Author: {{item.author}}</div>
+  <div>Description: {{item.body}}</div>
+  <form name="updateData" ng-submit="updateExItem()">
+    <div>
+      <select ng-model='item.status' required>
+        <option value="New">New</option>
+        <option value="Reviewed">Reviewed</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Blocked">Blocked</option>
+        <option value="Complete">Complete</option>
+      </select>
+    </div>
+    <div>
+      Ticket Number:
+      <input ng-model="item.ticket_num" placeholder="Enter the ticket number" /> {{ticket_num}}
+    </div>
+    <div>
+      Action Taken:
+      <input ng-model="item.action_taken" placeholder="The action taken" /> {{action_taken}}
+    </div>
+    <div>
+      Cause of Failure:
+      <input ng-model="item.cause" placeholder="What caused the outage?" /> {{cause}}
+    </div>
+    <input type="submit" value="Submit" />
+  </form>
+  <div>
+    <h3>Add Comment: </h3>
+  </div>
+  <form name="addComment" ng-submit="addComment">
+    <div>
+      <textarea ng-model="comment.body" required></textarea>
+    </div>
+    <div>
+      <input ng-model="comment.author" placeholder="Enter your name" />
+    </div>
+    <input type="submit" value="Submit Comment" />
+  </form>
+
+  <div ng-repeat="comment in item.comments | orderBy: '-create_date'">
+    <div>{{comment.body}}</div>
+    <div>Authored by: {{comment.author}} on {{comment.create_date}}</div>
+  </div>
 </script>
 
 </html>

@@ -124,7 +124,7 @@ router.put('/mlsexceptions', function(req, res, next) {
     },
     function(err, doc) {
       if (!err) {
-        console.log(doc);
+        //console.log(doc);
         res.json(doc)
 
       } else {

@@ -39,7 +39,7 @@ app.factory('exItems', ['$http', function($http) {
   };
 
   o.update = function(item) {
-    return $http.post(DATA_URL + 'mlsexceptions/' + id).then(function(res) {
+    return $http.put(DATA_URL + 'mlsexceptions/', item).then(function(res) {
       return res.data;
     });
   };
@@ -88,10 +88,22 @@ app.controller("mainCtrl", [
 
 app.controller("itemCtrl", [
   '$scope',
+  "$location",
   'exItems',
   'item',
-  function($scope, exItems, item) {
+  function($scope, $location, exItems, item) {
     $scope.title = "red-board manager";
     $scope.item = item;
+
+    $scope.updateExItem = function() {
+      console.log('updating item...' + item._id);
+      //console.log('setting status ' + this.item.status + ' to ' + this.status);
+      //this.item.status = this.status;
+      exItems.update(item).then(function() {
+        $location.path("home");
+      });
+
+    };
+
   }
 ]);
