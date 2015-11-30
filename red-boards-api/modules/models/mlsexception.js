@@ -24,4 +24,4 @@ var MlsExceptionSchema = new mongoose.Schema({
 });
 
 
-mongoose.model('MlsException', MlsExceptionSchema);
+module.exports = mongoose.model('MlsException', MlsExceptionSchema);
